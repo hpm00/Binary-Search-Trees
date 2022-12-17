@@ -17,5 +17,16 @@ class Tree
     end 
 
     def build_tree(array)
+        return if array.empty?
+        return Node.new(array[0]) if array.length <= 1
+
+        sorted = array.sort.uniq
+        mid = sorted.length / 2
+
+        root = Node.new(sorted[mid])
+        root.left = build_tree(sorted[0...mid])
+        root.right = build_tree(sorted[mid + 1..-1])
+
+        root
     end
 end

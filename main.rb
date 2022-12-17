@@ -39,13 +39,30 @@ class Tree
         end 
     end 
 
+    def delete(value, node = @root)
+        if value < node 
+            node.left = delete(value, node.left)
+        elsif value > node
+            node.right = delete(value, node.right)
+        else 
+            return node.right if node.left.nil?
+            return node.left if node.right.nil? 
+
+            left_node = most_left(node.right)
+            node.data = left_node.data 
+            node.right = delete(left_node.data, node.right)
+        end
+        node
+    end
+
+    def most_left(node)
+        node = node.left until node.left.nil?
+        node
+    end
 
 
-
-
-
-
-
+    def find()
+    end
 
 
 

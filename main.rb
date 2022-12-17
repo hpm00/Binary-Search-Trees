@@ -40,6 +40,7 @@ class Tree
     end 
 
     def delete(value, node = @root)
+        return node if node.nil?
         if value < node 
             node.left = delete(value, node.left)
         elsif value > node
@@ -62,12 +63,22 @@ class Tree
 
 
     def find(value, node = @root)
-        return node if node.data == value
-
+        return node if node.nil? || node.data == value
         value < node.data ? find(value, node.left) : find(value, node.right)
     end
 
+    def level_order(node = @root, queue = [])
+        print "#{node.data} " if !block_given?
+        yield(node.data) if block_given?
     
+        queue << node.left unless node.left.nil? 
+        queue << node.right unless node.right.nil?
+        return if queue.empty?
+    
+        level_order(queue.shift, queue)
+    end
+
+
 
     def pretty_print(node = @root, prefix = '', is_left = true)
         pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right

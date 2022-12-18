@@ -69,7 +69,7 @@ class Tree
 
     def level_order(node = @root, queue = [])
         print "#{node.data} " if !block_given?
-        yield(node.data) if block_given?
+        yield(node.data) if block_given? # ?
     
         queue << node.left unless node.left.nil? 
         queue << node.right unless node.right.nil?
@@ -78,7 +78,44 @@ class Tree
         level_order(queue.shift, queue)
     end
 
+    def inorder(node = @root)
+        return if node.nil?
+    
+        inorder(node.left)
+        print "#{node.data} " if !block_given?
+        
+        inorder(node.right)
+    end 
 
+    def preorder(node = @root)
+        return if node.nil?
+    
+        print "#{node.data} " if !block_given?
+    
+        preorder(node.left)
+        preorder(node.right)
+    end 
+
+    def postorder(node = @root)
+        return if node.nil?
+    
+        postorder(node.left)
+        postorder(node.right)
+    
+        print "#{node.data} " if !block_given? 
+    end 
+
+    def height
+    end 
+
+    def depth 
+    end 
+
+    def balanced?
+    end 
+
+    def rebalance
+    end
 
     def pretty_print(node = @root, prefix = '', is_left = true)
         pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right

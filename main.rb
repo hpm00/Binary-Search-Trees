@@ -122,7 +122,8 @@ class Tree
     end
 
     def balanced?
-    end 
+        (height(@root.left) - height(@root.right)).between?(-1, 1)
+      end 
 
     def rebalance
     end

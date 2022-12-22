@@ -105,9 +105,9 @@ class Tree
         print "#{node.data} " if !block_given? 
     end 
 
-    def height(node = @root, counter = -1)
+    def height(node = @root, counter = 0)
         return counter if node.nil?
-        counter += 1
+        counter += 1 unless node.left.nil? && node.right.nil?
         [height(node.left, counter), height(node.right, counter)].max
     end
 

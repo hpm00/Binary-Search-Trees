@@ -111,8 +111,15 @@ class Tree
         [height(node.left, counter), height(node.right, counter)].max
     end
 
-    def depth 
-    end 
+    def depth(target, node = @root, counter = 0)
+        return counter if node.nil? || node.data == target
+        counter += 1
+        if target < node.data
+          depth(target, node.left, counter)
+        else 
+          depth(target, node.right, counter)
+        end
+    end
 
     def balanced?
     end 

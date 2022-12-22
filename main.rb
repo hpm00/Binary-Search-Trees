@@ -78,13 +78,14 @@ class Tree
         level_order(queue.shift, queue)
     end
 
-    def inorder(node = @root)
+    def inorder(node = @root , output = [])
         return if node.nil?
     
-        inorder(node.left)
-        print "#{node.data} " if !block_given?
-        
-        inorder(node.right)
+        inorder(node.left, output)
+        output.push(node.data)
+        inorder(node.right, output)
+
+        output
     end 
 
     def preorder(node = @root)
@@ -126,6 +127,8 @@ class Tree
       end 
 
     def rebalance
+        nodes = inorder
+        @root = build_tree(nodes)
     end
 
     def pretty_print(node = @root, prefix = '', is_left = true)
